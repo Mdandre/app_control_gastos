@@ -4,23 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart';
 
 class GrapWidget extends StatefulWidget {
-  const GrapWidget({Key? key}) : super(key: key);
+  final List<double> data;
+  const GrapWidget({Key? key, required this.data}) : super(key: key);
 
   @override
   _GrapWidgetState createState() => _GrapWidgetState();
 }
 
 class _GrapWidgetState extends State<GrapWidget> {
-  var data;
-  @override
-  void initState() {
-    super.initState();
-
-    var r = Random();
-    data = List<double>.generate(30, (i) => r.nextDouble() * 1500);
-  }
-
-  _onSelectionChanged(SelectionModel model) {
+ _onSelectionChanged(SelectionModel model) {
     final selectedDatum = model.selectedDatum;
 
     var time;
@@ -44,7 +36,7 @@ class _GrapWidgetState extends State<GrapWidget> {
         colorFn: (_, __) => MaterialPalette.blue.shadeDefault,
         domainFn: (value, index) => index!,
         measureFn: (value, _) => value,
-        data: data,
+        data: widget.data,
         strokeWidthPxFn: (_, __) => 4,
       )
     ];
@@ -58,7 +50,8 @@ class _GrapWidgetState extends State<GrapWidget> {
           changedListener: _onSelectionChanged,
         )
       ],
-      domainAxis: NumericAxisSpec( //aca tendria que dividir el mes dependiedo cuantos dias tiene
+      domainAxis: NumericAxisSpec(
+          //aca tendria que dividir el mes dependiedo cuantos dias tiene
           tickProviderSpec: StaticNumericTickProviderSpec([
         TickSpec(0, label: '01'),
         TickSpec(4, label: '05'),
@@ -70,7 +63,7 @@ class _GrapWidgetState extends State<GrapWidget> {
       ])),
       primaryMeasureAxis: NumericAxisSpec(
           tickProviderSpec: BasicNumericTickProviderSpec(
-        desiredTickCount: 4,//aca seria el valor 1500 dividido 4
+        desiredTickCount: 4, //aca seria el valor 1500 dividido 4
       )),
     );
   }

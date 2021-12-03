@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
       viewportFraction: 0.4,
     );
 
-    _query = FirebaseFirestore.instance.collection('expenses').snapshots();
+    _query = FirebaseFirestore.instance.collection('expenses').where("month", isEqualTo: currentPage +1).snapshots();
   }
 
   @override
@@ -101,7 +101,10 @@ class _HomePageState extends State<HomePage> {
               builder:
                   (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
                 if (data.hasData) {
-                  return month_widget();
+                  print(_query);
+                  return month_widget(
+                  documents:data.data!.docs.toList()
+                  );
                 } else {
                   return CircularProgressIndicator();
                 }
@@ -145,6 +148,8 @@ class _HomePageState extends State<HomePage> {
         onPageChanged: (newPage) {
           setState(() {
             currentPage = newPage;
+            _query =
+                FirebaseFirestore.instance.collection('expenses').where("month", isEqualTo: currentPage +1).snapshots();
           });
         },
         controller: _pageController,
