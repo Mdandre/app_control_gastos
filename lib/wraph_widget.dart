@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart';
 
@@ -50,7 +48,7 @@ class _GrapWidgetState extends State<GrapWidget> {
           changedListener: _onSelectionChanged,
         )
       ],
-      domainAxis: NumericAxisSpec(
+      domainAxis: const NumericAxisSpec(
           //aca tendria que dividir el mes dependiedo cuantos dias tiene
           tickProviderSpec: StaticNumericTickProviderSpec([
         TickSpec(0, label: '01'),
@@ -61,7 +59,7 @@ class _GrapWidgetState extends State<GrapWidget> {
         TickSpec(24, label: '25'),
         TickSpec(29, label: '30'),
       ])),
-      primaryMeasureAxis: NumericAxisSpec(
+      primaryMeasureAxis: const NumericAxisSpec(
           tickProviderSpec: BasicNumericTickProviderSpec(
         desiredTickCount: 4, //aca seria el valor 1500 dividido 4
       )),
