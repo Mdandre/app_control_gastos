@@ -37,7 +37,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PageController? _pageController;
-  int currentPage = 9;
+  int currentPage = DateTime.now().month;
   late Stream<QuerySnapshot<Object?>> _query;
 
   @override
@@ -49,7 +49,10 @@ class _HomePageState extends State<HomePage> {
       viewportFraction: 0.4,
     );
 
-    _query = FirebaseFirestore.instance.collection('expenses').where("month", isEqualTo: currentPage +1).snapshots();
+    _query = FirebaseFirestore.instance
+        .collection('expenses')
+        .where("month", isEqualTo: currentPage + 1)
+        .snapshots();
   }
 
   @override
@@ -85,7 +88,9 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          _newDocument(context);
+        },
       ),
       body: _body(),
     );
@@ -103,7 +108,8 @@ class _HomePageState extends State<HomePage> {
                 if (data.hasData) {
                   print(_query);
                   return month_widget(
-                  documents:data.data!.docs.toList()
+                    documents: data.data!.docs.toList(),
+                    month: currentPage,
                   );
                 } else {
                   return CircularProgressIndicator();
@@ -148,8 +154,10 @@ class _HomePageState extends State<HomePage> {
         onPageChanged: (newPage) {
           setState(() {
             currentPage = newPage;
-            _query =
-                FirebaseFirestore.instance.collection('expenses').where("month", isEqualTo: currentPage +1).snapshots();
+            _query = FirebaseFirestore.instance
+                .collection('expenses')
+                .where("month", isEqualTo: currentPage + 1)
+                .snapshots();
           });
         },
         controller: _pageController,
@@ -170,4 +178,111 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+Future<void> _newDocument(BuildContext context) {
+  var _category, _day, _month, _value;
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                GestureDetector(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: "Category:",
+                    ),
+                    //  obscureText: true,
+                    controller: _category,
+                    onSaved: (category) {
+                      _category = category;
+                    },
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(10.0),
+                ),
+                GestureDetector(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: "Day:",
+                    ),
+                    // obscureText: true,
+                    controller: _day,
+                    onSaved: (day) {
+                      _day = day;
+                    },
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(10.0),
+                ),
+                GestureDetector(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: "Month:",
+                    ),
+                    //obscureText: true,
+                    controller: _month,
+                    onSaved: (month) {
+                      _month = month;
+                    },
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(10.0),
+                ),
+                GestureDetector(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: "Value:",
+                    ),
+                    //obscureText: true,
+                    controller: _value,
+                    onSaved: (value) {
+                      _value = value;
+                    },
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(1.0),
+                ),
+
+                ///
+                GestureDetector(
+                    child: TextButton(
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(3.0),
+                      // side: BorderSide(width: 1, color: GenommaColor.blue),
+                    ),
+                    //    padding: EdgeInsets.fromLTRB(  35.0, _sizes.height * 0.015, 35.0, _sizes.height * 0.015),
+                  ),
+                  onPressed: () {
+                    addGasto(_category, _day, _month, _value);
+                  },
+                  child: const Text(
+                    "Agregar",
+                    textAlign: TextAlign.center,
+                    // style: TextStyleExtension.roboto( color: GenommaColor.blue, weight: FontWeight.w600)),
+                  ),
+                ))
+
+                ///
+              ],
+            ),
+          ),
+          //--,
+        );
+      });
+}
+
+Future<void> addGasto(String category, int day, int month, double value) {
+  CollectionReference gasto = FirebaseFirestore.instance.collection('expenses');
+  return gasto
+      .add({'category': category, 'day': day, 'month': month, 'value': value})
+      .then((value) => print(" Added"))
+      .catchError((error) => print("Failed to add : $error"));
 }

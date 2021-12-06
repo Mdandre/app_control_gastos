@@ -3,14 +3,15 @@ import 'package:charts_flutter/flutter.dart';
 
 class GrapWidget extends StatefulWidget {
   final List<double> data;
-  const GrapWidget({Key? key, required this.data}) : super(key: key);
+  final int month;
+  const GrapWidget({Key? key, required this.data, required this.month}) : super(key: key);
 
   @override
   _GrapWidgetState createState() => _GrapWidgetState();
 }
 
 class _GrapWidgetState extends State<GrapWidget> {
- _onSelectionChanged(SelectionModel model) {
+  _onSelectionChanged(SelectionModel model) {
     final selectedDatum = model.selectedDatum;
 
     var time;
