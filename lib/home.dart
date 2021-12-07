@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
   Widget _pageItem(String name, int position) {
     Alignment _aligment;
 
-    const selected =  TextStyle(
+    const selected = TextStyle(
         fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blueGrey);
 
     final unselected = TextStyle(
@@ -199,15 +199,18 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.all(10.0),
                   ),
                   GestureDetector(
-                    child:  TextField(
+                      child: TextFormField(
                           controller: valueExp,
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Value',
                           ),
-                        )
-                        ),
+                          validator: (value) {
+                             if (valueExp is String) {
+                              return "Ingrese un valor numerico";
+                            }
+                          })),
                   const Padding(
                     padding: EdgeInsets.all(1.0),
                   ),
@@ -251,17 +254,16 @@ class _HomePageState extends State<HomePage> {
         .then((value) => print(" Added"))
         .catchError((error) => print("Failed to add : $error"));
   }
-
-
 }
-   void asignDay(int dropdownValue) {
-    _day = dropdownValue;
-  }
 
-  void asignMonth(int dropdownValue) {
-    _month = dropdownValue;
-  }
+void asignDay(int dropdownValue) {
+  _day = dropdownValue;
+}
 
-  void asigncategory(String dropdownValue) {
-    _category = dropdownValue;
-  }
+void asignMonth(int dropdownValue) {
+  _month = dropdownValue;
+}
+
+void asigncategory(String dropdownValue) {
+  _category = dropdownValue;
+}
