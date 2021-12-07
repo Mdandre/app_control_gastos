@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "461317444577",
+    "firebase_url": "https://control-gastos-f299b-default-rtdb.firebaseio.com",
+    "project_id": "control-gastos-f299b",
+    "storage_bucket": "control-gastos-f299b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461317444577:android:22dff96aa500ae0459b8a0",
+        "android_client_info": {
+          "package_name": "com.example.app_control_gastos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461317444577-kco41m8ejfoegdroes08gc7aoi61gufs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmMMMX0ACzXZ7F5JRkLaIFPYd-5xJl_No"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461317444577-kco41m8ejfoegdroes08gc7aoi61gufs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "461317444577-adap5154hhb1m73i12epekoj60huhddq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.appControlGastos"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

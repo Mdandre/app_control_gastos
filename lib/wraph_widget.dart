@@ -19,12 +19,10 @@ class _GrapWidgetState extends State<GrapWidget> {
 
     if (selectedDatum.isNotEmpty) {
       time = selectedDatum.first.datum;
-      selectedDatum.forEach((SeriesDatum datumPair) {
+      for (var datumPair in selectedDatum) {
         measures[datumPair.series.displayName!] = datumPair.datum;
-      });
+      }
     }
-    print(time);
-    print(measures);
   }
 
   @override

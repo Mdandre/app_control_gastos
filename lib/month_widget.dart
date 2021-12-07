@@ -98,7 +98,7 @@ class _month_widgetState extends State<month_widget> {
   }
 
   Widget _graph() {
-    return Container(
+    return SizedBox(
         height: 250.0,
         child: GrapWidget(
           data: widget.perDay,
