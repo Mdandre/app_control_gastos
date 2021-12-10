@@ -167,6 +167,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _newDocument(BuildContext context) {
+    double valor = 0.0;
     return showDialog(
         context: context,
         builder: (context) {
@@ -202,12 +203,15 @@ class _HomePageState extends State<HomePage> {
                       child: TextFormField(
                           controller: valueExp,
                           keyboardType: TextInputType.number,
+                          onChanged: (value) {
+                            valor = double.parse(value);
+                          },
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Value',
                           ),
                           validator: (value) {
-                             if (valueExp is String) {
+                            if (valueExp is String) {
                               return "Ingrese un valor numerico";
                             }
                           })),
@@ -226,8 +230,8 @@ class _HomePageState extends State<HomePage> {
                       //    padding: EdgeInsets.fromLTRB(  35.0, _sizes.height * 0.015, 35.0, _sizes.height * 0.015),
                     ),
                     onPressed: () {
-                      addGasto(
-                          _category, _day, _month, double.parse(valueExp.text));
+                      valueExp.clear;
+                      addGasto(_category, _day, _month, valor);
                       Navigator.of(context).pop();
                     },
                     child: const Text(
