@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:control_gastos/wraph_widget.dart';
+import 'package:app_control_gastos/wraph_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
@@ -66,14 +65,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         notchMargin: 8.0,
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             _bottomAction(FontAwesomeIcons.history),
             _bottomAction(FontAwesomeIcons.chartPie),
-            SizedBox(
+            const SizedBox(
               width: 48.0,
             ),
             _bottomAction(FontAwesomeIcons.wallet),
@@ -83,7 +82,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {},
       ),
       body: _body(),
@@ -111,7 +110,7 @@ class _HomePageState extends State<HomePage> {
       ),
       title: Text(
         name,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16.0,
           color: Colors.grey,
         ),
@@ -126,7 +125,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "\$$value",
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.blueAccent,
                 fontWeight: FontWeight.w500,
                 fontSize: 16.0,
@@ -149,11 +148,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _graph() {
-    return Container(height: 250.0, child: GrapWidget());
+    return const SizedBox(
+        height: 250.0,
+        // ignore: prefer_const_constructors
+        child: GrapWidget(
+          data: [
+            1,
+            2,
+          ],
+          month: 12,
+        ));
   }
 
   Widget _expenses() {
-    return Column(
+    return const Column(
       children: <Widget>[
         Text(
           "\$2361",
@@ -175,9 +183,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _pageItem(String name, int position) {
-    var _aligment;
+    Alignment _aligment;
 
-    final selected = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blueGrey);
+    const selected = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blueGrey);
 
     final unselected =
         TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.blueGrey.withOpacity(0.4));
@@ -200,7 +208,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _selector() {
     return SizedBox.fromSize(
-      size: Size.fromHeight(70.0),
+      size: const Size.fromHeight(70.0),
       child: PageView(
         onPageChanged: (newPage) {
           setState(() {

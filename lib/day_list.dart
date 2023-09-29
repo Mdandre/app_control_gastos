@@ -3,16 +3,16 @@
 import 'package:app_control_gastos/home.dart' as home;
 import 'package:flutter/material.dart';
 
-class dayList extends StatefulWidget {
+class DayList extends StatefulWidget {
   final int month;
-  const dayList({Key? key, required this.month}) : super(key: key);
+  const DayList({Key? key, required this.month}) : super(key: key);
 
   @override
-  State<dayList> createState() => _dayListState();
+  State<DayList> createState() => _DayListState();
 }
 
-/// This is the private State class that goes with dayList.
-class _dayListState extends State<dayList> {
+/// This is the private State class that goes with DayList.
+class _DayListState extends State<DayList> {
   int dropdownValue = 1;
   List<int> d31 = [1, 3, 5, 7, 8, 10, 12];
   List<int> d30 = [4, 6, 9, 11];

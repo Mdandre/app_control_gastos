@@ -6,6 +6,7 @@ import 'categories_list.dart';
 import 'day_list.dart';
 import 'month_list.dart';
 import 'month_widget.dart';
+// import 'month_widget.dart';
 
 var _category = 'shopping', _day = 1, _month = 1;
 
@@ -20,8 +21,7 @@ class _HomePageState extends State<HomePage> {
   PageController? _pageController;
   int currentPage = DateTime.now().month;
   late Stream<QuerySnapshot<Object?>> _query;
-  late TextEditingController
-      valueExp; //Pueder servir para el controler del valor del gasto
+  late TextEditingController valueExp; //Pueder servir para el controler del valor del gasto
 
   @override
   void initState() {
@@ -31,10 +31,7 @@ class _HomePageState extends State<HomePage> {
       viewportFraction: 0.4,
     );
     valueExp = TextEditingController();
-    _query = FirebaseFirestore.instance
-        .collection('expenses')
-        .where("month", isEqualTo: currentPage + 1)
-        .snapshots();
+    _query = FirebaseFirestore.instance.collection('expenses').where("month", isEqualTo: currentPage + 1).snapshots();
   }
 
   @override
@@ -58,14 +55,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         notchMargin: 8.0,
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             _bottomAction(FontAwesomeIcons.history),
             _bottomAction(FontAwesomeIcons.chartPie),
-            SizedBox(
+            const SizedBox(
               width: 48.0,
             ),
             _bottomAction(FontAwesomeIcons.wallet),
@@ -75,7 +72,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           _newDocument(context);
         },
@@ -91,15 +88,14 @@ class _HomePageState extends State<HomePage> {
           _selector(),
           StreamBuilder<QuerySnapshot>(
               stream: _query,
-              builder:
-                  (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
                 if (data.hasData) {
-                  return month_widget(
+                  return MonthWidget(
                     documents: data.data!.docs.toList(),
                     month: currentPage,
                   );
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               }),
         ],
@@ -110,13 +106,10 @@ class _HomePageState extends State<HomePage> {
   Widget _pageItem(String name, int position) {
     Alignment _aligment;
 
-    const selected = TextStyle(
-        fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blueGrey);
+    const selected = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blueGrey);
 
-    final unselected = TextStyle(
-        fontSize: 20.0,
-        fontWeight: FontWeight.normal,
-        color: Colors.blueGrey.withOpacity(0.4));
+    final unselected =
+        TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.blueGrey.withOpacity(0.4));
 
     if (position == currentPage) {
       _aligment = Alignment.center;
@@ -177,21 +170,21 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   const Text("Category"),
                   GestureDetector(
-                    child: const categoriesList(),
+                    child: const CategoriesList(),
                   ),
                   const Padding(
                     padding: EdgeInsets.all(10.0),
                   ),
                   const Text("Month"),
                   GestureDetector(
-                    child: const monthList(),
+                    child: const MonthList(),
                   ),
                   const Padding(
                     padding: EdgeInsets.all(10.0),
                   ),
                   const Text("Day"),
                   GestureDetector(
-                    child: dayList(
+                    child: DayList(
                       month: _month,
                     ),
                   ),
@@ -213,6 +206,8 @@ class _HomePageState extends State<HomePage> {
                           validator: (value) {
                             if (valueExp is String) {
                               return "Ingrese un valor numerico";
+                            } else {
+                              return null;
                             }
                           })),
                   const Padding(
@@ -251,11 +246,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> addGasto(String? category, int day, int month, double value) {
-    CollectionReference gasto =
-        FirebaseFirestore.instance.collection('expenses');
+    CollectionReference gasto = FirebaseFirestore.instance.collection('expenses');
     return gasto
         .add({'category': category, 'day': day, 'month': month, 'value': value})
+        // ignore: avoid_print
         .then((value) => print(" Added"))
+        // ignore: avoid_print
         .catchError((error) => print("Failed to add : $error"));
   }
 }

@@ -3,15 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class month_widget extends StatefulWidget {
+class MonthWidget extends StatefulWidget {
   final List<DocumentSnapshot>? documents;
   final double total;
   final List<double> perDay;
   final Map<String, double> categories;
   final int month;
-  month_widget({Key? key, this.documents, required this.month})
-      : total =
-            documents!.map((doc) => doc["value"]).fold(0.0, (a, b) => a + b),
+  MonthWidget({Key? key, this.documents, required this.month})
+      : total = documents!.map((doc) => doc["value"]).fold(0.0, (a, b) => a + b),
         perDay = List.generate(30, (int index) {
           return documents
               .where((doc) => doc["day"] == (index + 1))
@@ -31,10 +30,10 @@ class month_widget extends StatefulWidget {
         super(key: key);
 
   @override
-  _month_widgetState createState() => _month_widgetState();
+  _MonthWidgetState createState() => _MonthWidgetState();
 }
 
-class _month_widgetState extends State<month_widget> {
+class _MonthWidgetState extends State<MonthWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -87,8 +86,7 @@ class _month_widgetState extends State<month_widget> {
             var key = widget.categories.keys.elementAt(index);
             var data = widget.categories[key];
             return Container(
-              child:
-                  _item(_loadIcon(key), key, 100 * data! ~/ widget.total, data),
+              child: _item(_loadIcon(key), key, 100 * data! ~/ widget.total, data),
               //FontAwesomeIcons.shoppingCart
               // _item(FontAwesomeIcons.wineGlass, "Alchol", 5, 73.57),
               // _item(FontAwesomeIcons.hamburger, "FastFood", 10, 101.34),

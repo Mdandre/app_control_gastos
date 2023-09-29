@@ -19,7 +19,7 @@ class _GrapWidgetState extends State<GrapWidget> {
   _onSelectionChanged(SelectionModel model) {
     final selectedDatum = model.selectedDatum;
 
-    var time;
+    dynamic time;
     final measures = <String, double>{};
     if (selectedDatum.isNotEmpty) {
       time = selectedDatum.first.datum;
@@ -68,12 +68,12 @@ class _GrapWidgetState extends State<GrapWidget> {
       domainAxis: NumericAxisSpec(
           //aca tendria que dividir el mes dependiedo cuantos dias tiene
           tickProviderSpec: StaticNumericTickProviderSpec([
-        TickSpec(0, label: '01'),
-        TickSpec(4, label: '05'),
-        TickSpec(9, label: '10'),
-        TickSpec(14, label: '15'),
-        TickSpec(19, label: '20'),
-        TickSpec(24, label: '25'),
+        const TickSpec(0, label: '01'),
+        const TickSpec(4, label: '05'),
+        const TickSpec(9, label: '10'),
+        const TickSpec(14, label: '15'),
+        const TickSpec(19, label: '20'),
+        const TickSpec(24, label: '25'),
         TickSpec(29, label: days.toString()),
       ])),
       primaryMeasureAxis: const NumericAxisSpec(

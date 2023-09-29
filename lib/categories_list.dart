@@ -4,15 +4,15 @@
 import 'package:app_control_gastos/home.dart' as home;
 import 'package:flutter/material.dart';
 
-class categoriesList extends StatefulWidget {
-  const categoriesList({Key? key}) : super(key: key);
+class CategoriesList extends StatefulWidget {
+  const CategoriesList({Key? key}) : super(key: key);
 
   @override
-  State<categoriesList> createState() => _categoriesListState();
+  State<CategoriesList> createState() => _CategoriesListState();
 }
 
 /// This is the private State class that goes with categoriesList.
-class _categoriesListState extends State<categoriesList> {
+class _CategoriesListState extends State<CategoriesList> {
   String dropdownValue = 'shopping';
 
   @override
@@ -33,8 +33,7 @@ class _categoriesListState extends State<categoriesList> {
           home.asigncategory(dropdownValue);
         });
       },
-      items: <String>["shopping", "boludeces", "entretenimiento"]
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>["shopping", "boludeces", "entretenimiento"].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),

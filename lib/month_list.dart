@@ -4,15 +4,15 @@ import 'package:app_control_gastos/home.dart' as home;
 
 import 'package:flutter/material.dart';
 
-class monthList extends StatefulWidget {
-  const monthList({Key? key}) : super(key: key);
+class MonthList extends StatefulWidget {
+  const MonthList({Key? key}) : super(key: key);
 
   @override
-  State<monthList> createState() => _monthListState();
+  State<MonthList> createState() => _MonthListState();
 }
 
-/// This is the private State class that goes with monthList.
-class _monthListState extends State<monthList> {
+/// This is the private State class that goes with MonthList.
+class _MonthListState extends State<MonthList> {
   int dropdownValue = 1;
 
   @override
@@ -33,9 +33,7 @@ class _monthListState extends State<monthList> {
           home.asignMonth(dropdownValue);
         });
       },
-      items: <int>[
-       1,2,3,4,5,6,7,8,9,10,11,12
-      ].map<DropdownMenuItem<int>>((int value) {
+      items: <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map<DropdownMenuItem<int>>((int value) {
         return DropdownMenuItem<int>(
           value: value,
           child: Text(value.toString()),
